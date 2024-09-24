@@ -10,7 +10,7 @@ import { AfterViewInit, Component } from '@angular/core';
 export class AboutComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
-   console.log("about");
+  console.log("about");
   }
 
 }

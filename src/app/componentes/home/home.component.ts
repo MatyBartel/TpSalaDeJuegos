@@ -7,19 +7,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-
-  producto!: number;
-
-  ngOnInit(): void {
-    
-    const strProduct = localStorage.getItem("producto");
-
-    this.producto = JSON.parse(strProduct!);
-
-    console.log(this.producto);
-    
-
-  }
-
-}
+export class HomeComponent{}

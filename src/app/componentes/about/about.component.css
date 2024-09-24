@@ -1,0 +1,81 @@
+/* Estilos para otro componente */
+body {
+    font-family: 'Roboto', sans-serif; /* Aplicar la fuente Roboto */
+}
+
+/* Otros estilos específicos del componente */
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif; /* Asegúrate de que los encabezados también usen Roboto */
+}
+
+.about {
+    max-width: 600px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar el contenedor */
+    padding: 20px; /* Espaciado interno */
+    background-color: #f0f0f0; /* Fondo claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+}
+
+h2 {
+    text-align: center; /* Centrar el título principal */
+    color: rgb(0, 89, 0); /* Cambiar el color del título a verde */
+}
+
+h3 {
+    margin-top: 20px; /* Espaciado superior */
+    color: #000000; /* Color del texto para subtítulos */
+}
+
+.texto-centro {
+    text-align: center; /* Centra el título "Datos Personales" */
+    margin-bottom: 10px; /* Separar del contenido inferior */
+}
+
+p {
+    line-height: 1.5; /* Mejora la legibilidad */
+    font-family: 'Arial', sans-serif; /* Cambiar la fuente del texto de datos personales y la explicación del juego */
+    color: #000000; /* Color del texto */
+}
+
+/* Estilo para la disposición de imagen y texto */
+.datos-personales {
+    display: flex; /* Usar flexbox para alinear imagen y texto */
+    align-items: stretch; /* Alinear verticalmente */
+    margin: 20px 0; /* Espaciado superior e inferior */
+}
+
+.imagen-alumno {
+    margin-right: 20px; /* Espacio entre imagen y texto */
+    margin-top: 70px;
+}
+
+.imagen-cuadrada {
+    width: 200px; /* Ancho del contenedor de imagen */
+    height: auto; /* Alto automático para mantener la proporción */
+    overflow: hidden; /* Recortar el contenido que se sale del contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.alumno-img {
+    width: 100%; /* Ajustar el ancho de la imagen al 100% del contenedor */
+    height: 100%; /* Ajustar la altura de la imagen al 100% del contenedor */
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor, recortando si es necesario */
+}
+
+.texto-alumno {
+    flex: 1; /* Hace que el texto ocupe el espacio restante */
+    display: flex;
+    flex-direction: column; /* Alinear texto verticalmente */
+    justify-content: center; /* Centra verticalmente el contenido del texto */
+}
+
+.explicacion-juego {
+    text-align: center; /* Centrar contenido de la explicación del juego */
+}
+
+.juego-img {
+    max-width: 100%; /* Asegura que la imagen del juego no exceda el ancho del contenedor */
+    height: auto; /* Mantener la proporción de la imagen */
+    border-radius: 5px; /* Bordes redondeados para las imágenes */
+}

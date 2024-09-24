@@ -1,6 +1,17 @@
-<p>Menu</p>
-<button routerLink="home" routerLinkActive="active-route" >Bienvenido</button>
-<button routerLink="about" routerLinkActive="active-route"  >About</button>
-<button (click)="goTo('products')" > Productos</button>
+<div class="menu-container">
+    
+    <div class="button-group"> <!-- Contenedor para los botones -->
+        <button routerLink="home" routerLinkActive="active-route">Home</button>
+        <button routerLink="about" routerLinkActive="active-route">¿Quién soy?</button>
+    </div>
+</div>
 
-<router-outlet />
+<!-- Contenedor para el router outlet que centra el formulario -->
+<div class="form-container">
+    <router-outlet></router-outlet> <!-- Aquí se mostrará el formulario de login -->
+</div>
+
+<!-- Contenedor para el botón de login -->
+<div class="login-button-container">
+    <button routerLink="login" routerLinkActive="active-route">Login</button> <!-- Botón de Login -->
+</div>

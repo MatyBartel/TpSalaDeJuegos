@@ -1,0 +1,9 @@
+/* Estilos para otro componente */
+body {
+    font-family: 'Roboto', sans-serif; /* Aplicar la fuente Roboto */
+}
+
+/* Otros estilos específicos del componente */
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif; /* Asegúrate de que los encabezados también usen Roboto */
+}

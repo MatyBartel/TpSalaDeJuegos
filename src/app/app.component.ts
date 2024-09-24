@@ -6,14 +6,12 @@ import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] // Asegúrate de que sea styleUrls, no styleUrl
 })
 export class AppComponent {
   title = 'rutas';
 
-  constructor(private router: Router) {
-
-  }
+  constructor(private router: Router) {}
 
   goTo(path: string) {
     this.router.navigate([path]);

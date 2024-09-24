@@ -1,0 +1,93 @@
+/* Estilos generales para el formulario */
+form {
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centrar el formulario */
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    background-color: #ffffff; /* Fondo blanco */
+    font-family: 'Roboto', sans-serif; /* Usar fuente Roboto */
+}
+
+/* Título del formulario */
+h2 {
+    text-align: center; /* Centrar el título */
+    color: #333; /* Color del texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Estilos para las etiquetas */
+label {
+    display: block; /* Asegurarse de que cada etiqueta esté en su propia línea */
+    margin-bottom: 8px; /* Espaciado inferior */
+    font-weight: bold; /* Negrita */
+    color: #555; /* Color del texto */
+}
+
+/* Estilos para los campos de entrada */
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Tomar todo el ancho del contenedor */
+    padding: 12px; /* Espaciado interno */
+    margin-bottom: 15px; /* Espaciado inferior */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir padding y border en el ancho total */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Efecto al enfocar los campos de entrada */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50; /* Cambiar el borde a verde al enfocar */
+    outline: none; /* Sin contorno por defecto */
+}
+
+/* Estilos para el botón de envío */
+button {
+    width: 100%; /* Tomar todo el ancho del contenedor */
+    background-color: #4CAF50; /* Fondo verde */
+    color: white; /* Texto blanco */
+    padding: 12px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de puntero */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+button:hover {
+    background-color: #45a049; /* Cambiar a un verde más oscuro */
+}
+
+/* Animación antes de pulsar el botón */
+button:active {
+    transform: scale(0.95); /* Reduce el tamaño del botón al pulsar */
+}
+
+/* Estilo para mensajes de error */
+.error-message {
+    color: red; /* Color rojo para los mensajes de error */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-top: -10px; /* Espaciado negativo para acercar al campo */
+    margin-bottom: 15px; /* Espaciado inferior */
+}
+
+/* Estilo para enlaces */
+a {
+    color: #4CAF50; /* Color verde */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: bold; /* Negrita */
+}
+
+/* Efecto al pasar el mouse sobre el enlace */
+a:hover {
+    text-decoration: underline; /* Subrayar al pasar el mouse */
+}
+
+  /* Efecto al pasar el mouse sobre el botón */
+  button:hover {
+    background-color: #024005; /* Cambiar a un verde más oscuro */
+  }

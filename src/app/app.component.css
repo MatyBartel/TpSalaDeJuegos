@@ -1,3 +1,42 @@
-.active-route {
-    background-color: brown;
+/* Estilos generales para el cuerpo de la aplicación */
+body {
+    margin: 0; /* Sin márgenes */
+    padding: 0; /* Sin relleno */
+    font-family: Arial, sans-serif; /* Fuente general */
+    display: flex; /* Usar flexbox para centrar contenido */
+    flex-direction: column; /* Dirección de la columna */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: flex-start; /* Alinear en la parte superior */
+    height: 100vh; /* Altura completa de la ventana */
+  }
+  
+  /* Contenedor del formulario para centrarlo */
+  .form-container {
+    display: flex; /* Usar flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    width: 100%; /* Ancho completo */
+    margin-top: 50px; /* Espaciado superior */
+  }
+  
+  /* Estilos para el botón de login */
+  .login-button-container {
+    position: absolute; /* Posición absoluta */
+    top: 10px; /* Distancia desde la parte superior */
+    right: 20px; /* Distancia desde la derecha */
+  }
+
+/* Estilos para los botones */
+button {
+    background-color: #003402; /* Fondo verde */
+    color: white; /* Texto blanco */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de puntero */
+    transition: background-color 0.3s; /* Efecto de transición al cambiar el color */
+    margin: 0 10px; /* Margen izquierdo y derecho para separar los botones */
 }
+  /* Efecto al pasar el mouse sobre el botón */
+  button:hover {
+    background-color: #45a049; /* Cambiar a un verde más oscuro */
+  }
