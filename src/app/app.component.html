@@ -1,17 +1,24 @@
-<div class="menu-container">
-    
-    <div class="button-group"> <!-- Contenedor para los botones -->
-        <button routerLink="home" routerLinkActive="active-route">Home</button>
-        <button routerLink="about" routerLinkActive="active-route">¿Quién soy?</button>
+<div class="nav">
+    <div class="button-group">
+        <button routerLink="home" routerLinkActive="active-route">INICIO</button>
+        <button routerLink="about" routerLinkActive="active-route">¿QUIÉN SOY?</button>
+    </div>
+    <div class="login-button-container" *ngIf="!isLoggedIn"> <!-- Ocultar si el usuario está conectado -->
+        <button routerLink="login" routerLinkActive="active-route">INICIAR SESION</button>
+    </div>
+    <div class="register-button-container" *ngIf="!isLoggedIn"> <!-- Ocultar si el usuario está conectado -->
+        <button routerLink="registro" routerLinkActive="active-route">REGISTRARSE</button>
+    </div>
+    <div class="logout-button-container" *ngIf="isLoggedIn"> <!-- Mostrar si el usuario está conectado -->
+        <button (click)="logout()">CERRAR SESION</button>
     </div>
 </div>
 
-<!-- Contenedor para el router outlet que centra el formulario -->
-<div class="form-container">
-    <router-outlet></router-outlet> <!-- Aquí se mostrará el formulario de login -->
+<div class="form-container1">
+<router-outlet></router-outlet> <!-- Aquí se mostrará el contenido de la ruta actual -->
 </div>
 
-<!-- Contenedor para el botón de login -->
-<div class="login-button-container">
-    <button routerLink="login" routerLinkActive="active-route">Login</button> <!-- Botón de Login -->
+<div class="form-container">
+    <app-registro *ngIf="router.url === '/registro'" (loginStatusChange)="setLoginStatus($event)"></app-registro>
+    <app-login *ngIf="router.url === '/login'" (loginStatusChange)="setLoginStatus($event)"></app-login> <!-- Escuchar el evento solo en la ruta de login -->
 </div>

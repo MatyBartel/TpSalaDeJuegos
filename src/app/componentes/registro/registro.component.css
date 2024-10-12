@@ -6,7 +6,7 @@ form {
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
     background-color: #ffffff;
-    font-family: 'Roboto'; /* Fuente del cuerpo */
+    font-family: 'Roboto';
 }
 
 .titulo {
@@ -27,23 +27,25 @@ form {
 .input-icon {
     width: 40px; /* Ajusta el tamaño de la imagen según sea necesario */
     height: 40px; /* Mantiene la proporción de la imagen */
-    margin-right: 10px; /* Espacio entre la imagen y el label */
+    margin-right: 10px; /* Espacio entre la imagen y el input */
 }
 
 input[type="text"],
-input[type="password"] {
-    width: 80%;
+input[type="password"],
+input[type="email"] { /* Aplica los mismos estilos al input de correo */
+    width: 80%; /* Ajusta el ancho del input */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box; 
-    font-size: 16px; 
+    font-size: 16px;
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="email"]:focus { /* Agrega el foco para el input de correo */
     border-color: #4CAF50; 
-    outline: none; 
+    outline: none;
 }
 
 button {

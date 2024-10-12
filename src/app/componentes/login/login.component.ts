@@ -1,22 +1,48 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Asegúrate de importar FormsModule
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from '../../../firebaseConfig'; 
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  standalone: true, // Asegúrate de que está definido como standalone
-  imports: [FormsModule], // Importa FormsModule aquí
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] // Asegúrate de que la ruta sea correcta
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = ''; // Variable para el nombre de usuario
-  password: string = ''; // Variable para la contraseña
+  @Output() loginStatusChange = new EventEmitter<boolean>();
+  username: string = '';
+  password: string = '';
+  errorMessage: string = ''; // Para mostrar mensajes de error
 
-  constructor() {}
+  // Inicializar Firebase App
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(this.app);
 
-  onSubmit() {
-    // Aquí puedes manejar el envío del formulario
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
+  constructor(private router: Router) {}
+
+  async onSubmit() {
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, this.username, this.password);
+      this.loginStatusChange.emit(true); 
+      this.router.navigate(['/home']);
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/invalid-credential':
+          this.errorMessage = 'Correo o contraseña incorrecta.';
+          break;
+        case 'auth/invalid-email':
+          this.errorMessage = 'Formato de correo inválido.';
+          break;
+        default:
+          this.errorMessage = 'Error al iniciar sesión. Intenta nuevamente.';
+      }
+      console.error('Error en login:', error);
+      this.loginStatusChange.emit(false); // Emitir false si falla el inicio de sesión
+    }
   }
 }

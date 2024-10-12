@@ -1,19 +1,32 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { Component} from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { LoginComponent } from './componentes/login/login.component'; 
+import { CommonModule } from '@angular/common';
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, LoginComponent, RegistroComponent], // Asegúrate de que LoginComponent esté aquí
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'] // Asegúrate de que sea styleUrls, no styleUrl
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'rutas';
+  isLoggedIn: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
-  goTo(path: string) {
-    this.router.navigate([path]);
+  setLoginStatus(isLoggedIn: boolean) {
+    this.isLoggedIn = isLoggedIn;
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
+  }
+
+  updateLoginStatus(isLoggedIn: boolean) {
+    this.isLoggedIn = isLoggedIn;
   }
 }
