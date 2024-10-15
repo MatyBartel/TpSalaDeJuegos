@@ -1,18 +1,37 @@
 <div class="home-container">
     <div class="icon">
-        <img src="assets/images/PreguntadosGame.jpg" alt="Icono 1" />
+        <a [routerLink]="['/preguntados']">
+            <img src="assets/images/PreguntadosGame.jpg" alt="Icono 1" />
+        </a>
         <label>Preguntados</label>
     </div>
     <div class="icon">
-        <img src="assets/images/Ahorcado.png" alt="Icono 2" />
+        <a [routerLink]="['/ahorcado']"> <!-- Cambiar para que la imagen sea clicable -->
+            <img src="https://firebasestorage.googleapis.com/v0/b/salajuegos-bartel.appspot.com/o/Ahorcado.png?alt=media&token=9aeee8ad-c688-45ce-837b-c87483bb7442" alt="Icono 2" />
+        </a>
         <label>Ahorcado</label>
     </div>
     <div class="icon">
-        <img src="assets/images/MayorMenor.png" alt="Icono 3" />
+        <a [routerLink]="['/mayor-menor']">
+            <img src="assets/images/MayorMenor.png" alt="Icono 3" />
+        </a>
         <label>Mayor o Menor</label>
     </div>
     <div class="icon">
-        <img src="assets/images/WordGame.png" alt="Icono 4" />
+        <a [routerLink]="['/word-game']">
+            <img src="assets/images/WordGame.png" alt="Icono 4" />
+        </a>
         <label>Juego de Letras</label>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="chat-container">
+        <h3>Chat</h3>
+        <div class="chat-messages">
+            <div *ngFor="let msg of messages">{{ msg.user }}: {{ msg.text }}</div>
+        </div>
+        <div class="input-container">
+            <input type="text" [(ngModel)]="message" placeholder="Escribe tu mensaje" />
+            <button (click)="sendMessage()">Enviar</button>
+        </div>
     </div>
 </div>

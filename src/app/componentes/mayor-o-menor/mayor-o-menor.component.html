@@ -1,0 +1,16 @@
+<div class="mayor-o-menor-container">
+    <h2>MAYOR O MENOR</h2>
+    <div class="carta-actual">
+        <img [src]="cartaActual.imagen" alt="Carta Actual" />
+    </div>
+    <div class="puntaje">
+        Puntaje: {{ puntaje }}
+    </div>
+    <div class="botones">
+        <button class="mayor" (click)="verificarRespuesta('mayor')">⬆</button>
+        <button class="menor "(click)="verificarRespuesta('menor')">⬇</button>
+    </div>
+    <div class="mensaje-final">
+        {{ mensaje }}
+    </div>
+</div>

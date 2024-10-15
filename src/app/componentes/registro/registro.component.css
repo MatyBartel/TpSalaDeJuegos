@@ -1,39 +1,39 @@
 form {
     max-width: 400px; 
-    margin: 130px auto; /* Ajustar el margen superior según sea necesario */
+    margin: 130px auto; 
     padding: 60px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
     font-family: 'Roboto';
 }
 
 .titulo {
-    text-align: center; /* Centra el título */
-    font-size: 35px; /* Tamaño del título */
-    font-weight: bold; /* Negrita */
-    color: #4CAF50; /* Color verde */
-    margin-bottom: 30px; /* Espaciado inferior */
-    text-transform: uppercase; /* Transformar texto a mayúsculas */
+    text-align: center; 
+    font-size: 35px; 
+    font-weight: bold; 
+    color: #4CAF50; 
+    margin-bottom: 30px; 
+    text-transform: uppercase; 
 }
 
 .input-container {
-    display: flex; /* Usa flexbox para alinear la imagen y el input */
-    align-items: center; /* Alinea la imagen y el input al centro */
-    margin-bottom: 15px; /* Espaciado entre los campos de entrada */
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 15px; 
 }
 
 .input-icon {
-    width: 40px; /* Ajusta el tamaño de la imagen según sea necesario */
-    height: 40px; /* Mantiene la proporción de la imagen */
-    margin-right: 10px; /* Espacio entre la imagen y el input */
+    width: 40px; 
+    height: 40px; 
+    margin-right: 10px; 
 }
 
 input[type="text"],
 input[type="password"],
-input[type="email"] { /* Aplica los mismos estilos al input de correo */
-    width: 80%; /* Ajusta el ancho del input */
+input[type="email"] {
+    width: 80%; 
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -43,14 +43,14 @@ input[type="email"] { /* Aplica los mismos estilos al input de correo */
 
 input[type="text"]:focus,
 input[type="password"]:focus,
-input[type="email"]:focus { /* Agrega el foco para el input de correo */
+input[type="email"]:focus {
     border-color: #4CAF50; 
     outline: none;
 }
 
 button {
     width: 100%; 
-    background-color: #4CAF50; /* Color de fondo del botón */
+    background-color: #4CAF50; 
     color: white; 
     padding: 12px;
     border: none; 
@@ -62,11 +62,11 @@ button {
 }
 
 button:hover {
-    background-color: #45a049; /* Color al pasar el mouse */
+    background-color: #45a049; 
 }
 
 button:active {
-    transform: scale(0.95); /* Efecto de pulsación */
+    transform: scale(0.95); 
 }
 
 .error-message {

@@ -17,13 +17,17 @@ export class LoginComponent {
   @Output() loginStatusChange = new EventEmitter<boolean>();
   username: string = '';
   password: string = '';
-  errorMessage: string = ''; // Para mostrar mensajes de error
+  errorMessage: string = '';
 
-  // Inicializar Firebase App
   app = initializeApp(firebaseConfig);
   auth = getAuth(this.app);
 
   constructor(private router: Router) {}
+
+  fillFields() {
+    this.username = 'prop@prop.com';
+    this.password = '123456';
+  }
 
   async onSubmit() {
     try {
@@ -42,7 +46,7 @@ export class LoginComponent {
           this.errorMessage = 'Error al iniciar sesión. Intenta nuevamente.';
       }
       console.error('Error en login:', error);
-      this.loginStatusChange.emit(false); // Emitir false si falla el inicio de sesión
+      this.loginStatusChange.emit(false);
     }
   }
 }

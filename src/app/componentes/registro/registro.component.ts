@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
-  @Output() loginStatusChange = new EventEmitter<boolean>(); // Evento para el estado de inicio de sesión
+  @Output() loginStatusChange = new EventEmitter<boolean>();
   username: string = '';
   password: string = '';
   nombre: string = '';
   correo: string = '';
-  errorMessage: string = ''; // Para mostrar mensajes de error
+  errorMessage: string = ''; 
 
   constructor(private router: Router) {}
 
@@ -26,7 +26,6 @@ export class RegistroComponent {
     const auth = getAuth();
     const db = getFirestore();
 
-    // Validaciones locales antes de intentar crear el usuario
     if (!this.nombre || !this.username || !this.correo || !this.password) {
       this.errorMessage = 'Todos los campos son obligatorios.';
       return;
@@ -43,11 +42,9 @@ export class RegistroComponent {
     }
 
     try {
-      // Crear el usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, this.correo, this.password);
       const user = userCredential.user;
 
-      // Registrar el log de usuario en Firestore
       const userDoc = doc(db, 'usuarios', user.uid);
       await setDoc(userDoc, {
         nombre: this.nombre,
@@ -57,7 +54,7 @@ export class RegistroComponent {
       });
 
       console.log('Usuario registrado exitosamente:', user);
-      this.loginStatusChange.emit(true); // Emitir true al registrarse exitosamente
+      this.loginStatusChange.emit(true); 
       this.router.navigate(['/home']);
 
     } catch (error: any) {
@@ -75,7 +72,7 @@ export class RegistroComponent {
           this.errorMessage = 'Error al registrar el usuario. Intenta nuevamente.';
       }
       console.error('Error al registrar el usuario:', error);
-      this.loginStatusChange.emit(false); // Emitir false si ocurre un error
+      this.loginStatusChange.emit(false);
     }
   }
 
