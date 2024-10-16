@@ -1,32 +1,35 @@
 <div class="home-container">
-    <div class="icon">
-        <a [routerLink]="['/preguntados']">
+    <div class="games">
+        <div class="icon" [ngClass]="{'dimmed': !isLoggedIn}"
+            (click)="isLoggedIn ? navegarAGrupo('preguntados') : null">
             <img src="assets/images/PreguntadosGame.jpg" alt="Icono 1" />
-        </a>
-        <label>Preguntados</label>
-    </div>
-    <div class="icon">
-        <a [routerLink]="['/ahorcado']"> <!-- Cambiar para que la imagen sea clicable -->
-            <img src="https://firebasestorage.googleapis.com/v0/b/salajuegos-bartel.appspot.com/o/Ahorcado.png?alt=media&token=9aeee8ad-c688-45ce-837b-c87483bb7442" alt="Icono 2" />
-        </a>
-        <label>Ahorcado</label>
-    </div>
-    <div class="icon">
-        <a [routerLink]="['/mayor-menor']">
+            <label>Preguntados</label>
+        </div>
+        <div class="icon" [ngClass]="{'dimmed': !isLoggedIn}" (click)="isLoggedIn ? navegarAGrupo('ahorcado') : null">
+            <img src="https://firebasestorage.googleapis.com/v0/b/salajuegos-bartel.appspot.com/o/Ahorcado.png?alt=media&token=9aeee8ad-c688-45ce-837b-c87483bb7442"
+                alt="Icono 2" />
+            <label>Ahorcado</label>
+        </div>
+        <div class="icon" [ngClass]="{'dimmed': !isLoggedIn}"
+            (click)="isLoggedIn ? navegarAGrupo('mayor-menor') : null">
             <img src="assets/images/MayorMenor.png" alt="Icono 3" />
-        </a>
-        <label>Mayor o Menor</label>
-    </div>
-    <div class="icon">
-        <a [routerLink]="['/word-game']">
+            <label>Mayor o Menor</label>
+        </div>
+        <div class="icon" [ngClass]="{'dimmed': !isLoggedIn}" (click)="isLoggedIn ? navegarAGrupo('word-game') : null">
             <img src="assets/images/WordGame.png" alt="Icono 4" />
-        </a>
-        <label>Juego de Letras</label>
+            <label>Juego de Letras</label>
+        </div>
     </div>
 
+    <!-- Mensaje para iniciar sesión si no está logueado -->
+    <div *ngIf="!isLoggedIn" class="mensaje-sesion">
+        <label>INICIA SESIÓN PARA JUGAR</label>
+    </div>
+
+    <!-- Contenedor del chat que aparece solo cuando se está logueado -->
     <div *ngIf="isLoggedIn" class="chat-container">
         <h3>Chat</h3>
-        <div class="chat-messages">
+        <div class="chat-messages" #chatContainer>
             <div *ngFor="let msg of messages">{{ msg.user }}: {{ msg.text }}</div>
         </div>
         <div class="input-container">

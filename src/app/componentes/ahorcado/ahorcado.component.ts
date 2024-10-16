@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Firestore, collection, addDoc, query, orderBy, limit } from '@angular/fire/firestore'; 
+import { inject } from '@angular/core';
+import { onSnapshot } from 'firebase/firestore';
+import { getAuth } from "firebase/auth"; 
 
 @Component({
   selector: 'app-ahorcado',
@@ -17,29 +20,85 @@ export class AhorcadoComponent {
   juegoTerminado: boolean = false;
   palabraCargada: boolean = false;
   mensajeResultado: string = '';
+  puntos: number = 0;
+  private db = inject(Firestore); 
+  ranking: { ['correo']: string, ['score']: number }[] = [];
+  mejoresJugadores: { nombre: string, puntos: number }[] = [];
 
   constructor(private http: HttpClient) {
-    this.getRandomWord();
+    this.getRandomWord(); 
+    this.obtenerRanking(); 
+  }
+
+  obtenerCorreoUsuario(): string | null {
+    const auth = getAuth();  
+    const user = auth.currentUser;
+
+    if (user && user.email) {
+      return user.email;
+    }
+
+    return null;
+  }
+
+  guardarResultado() {
+    const correoUsuario = this.obtenerCorreoUsuario();
+
+    if (correoUsuario) {
+      addDoc(collection(this.db, 'ranking'), {
+        correo: correoUsuario, 
+        score: this.puntos,
+        fecha: new Date(),
+      })
+      .then(() => {
+        console.log('Resultado guardado');
+        this.obtenerRanking(); 
+      })
+      .catch((error) => {
+        console.error('Error al guardar el resultado: ', error);
+        this.mensajeResultado = 'Error al guardar el resultado. Intenta nuevamente.';
+      });
+    } else {
+      console.error('No hay usuario autenticado');
+      this.mensajeResultado = 'No se pudo obtener el correo del usuario. Asegúrate de estar logueado.';
+    }
+  }
+
+  obtenerRanking() {
+    const q = query(collection(this.db, 'ranking'), orderBy('score', 'desc'), limit(5));
+    onSnapshot(q, (querySnapshot) => {
+      this.mejoresJugadores = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        this.mejoresJugadores.push({ nombre: data['correo'], puntos: data['score'] });
+      });
+    }, (error) => {
+      console.error('Error al obtener ranking: ', error);
+      this.mensajeResultado = 'Error al obtener el ranking. Intenta nuevamente.';
+    });
+  }
+
+  finalizarJuego() {
+    if (this.juegoTerminado) {
+      this.guardarResultado(); 
+    }
   }
 
   getRandomWord() {
     this.palabraCargada = false;
     this.http.get('https://clientes.api.greenborn.com.ar/public-random-word').subscribe(
       (response: any) => {
-        console.log('Respuesta de la API:', response);
         if (Array.isArray(response) && response.length > 0) {
           const palabra = response[0].toUpperCase();
-          
+
           if (this.contieneLetrasConAcento(palabra) || this.contieneDiacriticos(palabra) || this.contieneEspacios(palabra)) {
-            console.error('La palabra no es válida, obteniendo una nueva palabra...');
             this.getRandomWord();
           } else {
             this.palabraSecreta = palabra;
             this.resetGame();
           }
-        } else {
-          console.error('La API no devolvió una palabra válida');
         }
+        console.log(this.palabraSecreta)
       },
       error => {
         console.error('Error al obtener la palabra secreta', error);
@@ -78,13 +137,19 @@ export class AhorcadoComponent {
 
         if (this.intentosRestantes === 0) {
           this.juegoTerminado = true;
-          this.mensajeResultado = 'Perdiste. La palabra era: ' + this.palabraSecreta;
+          this.mensajeResultado = 'PERDISTE. La palabra era: ' + this.palabraSecreta;
+          this.puntos = 0;
         }
       }
 
       if (this.haGanado()) {
-        this.juegoTerminado = true; 
-        this.mensajeResultado = '¡Ganaste! La palabra era: ' + this.palabraSecreta;
+        this.juegoTerminado = true;
+        this.mensajeResultado = '¡EXCELENTE! Sumaste 5 puntos';
+        this.puntos += 5;
+      }
+
+      if (this.juegoTerminado) {
+        this.finalizarJuego(); 
       }
     }
   }

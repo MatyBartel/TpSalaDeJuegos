@@ -1,18 +1,25 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Firestore, collection, addDoc, query, orderBy, limit } from '@angular/fire/firestore'; 
+import { inject } from '@angular/core';
+import { onSnapshot } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
+import { CommonModule, NgFor } from '@angular/common'; 
 
 @Component({
   selector: 'app-mayor-o-menor',
-  standalone: true, // Indica que es un componente standalone
+  standalone: true,
   templateUrl: './mayor-o-menor.component.html',
   styleUrls: ['./mayor-o-menor.component.css'],
-  imports: [CommonModule], // Importa CommonModule aquí
+  imports: [CommonModule, NgFor]
 })
 export class MayorOMenorComponent {
-  cartaActual!: any; // Cambia a 'any' para almacenar el objeto de la carta
-  siguienteCarta!: any; // Cambia a 'any' para almacenar el objeto de la carta
+  cartaActual!: any;
+  siguienteCarta!: any;
   puntaje: number = 0;
   mensaje: string = '';
+  ranking: { ['correo']: string, ['score']: number }[] = [];
+  mejoresJugadores: { nombre: string, puntos: number }[] = [];
+  private db = inject(Firestore);
 
   cartas: any[] = [
     { valor: 1, palo: 'Basto', imagen: 'https://firebasestorage.googleapis.com/v0/b/salajuegos-bartel.appspot.com/o/cartas%2F1basto.jpg?alt=media&token=69375ad9-f781-4c08-90a5-9a30800bb040' },
@@ -31,6 +38,7 @@ export class MayorOMenorComponent {
 
   constructor() {
     this.iniciarJuego();
+    this.obtenerRanking();
   }
 
   iniciarJuego() {
@@ -43,7 +51,7 @@ export class MayorOMenorComponent {
 
     do {
       carta = this.cartas[Math.floor(Math.random() * this.cartas.length)];
-    } while (carta === this.cartaActual); // Asegúrate de que no sea la misma carta
+    } while (carta === this.cartaActual);
 
     return carta;
   }
@@ -56,11 +64,59 @@ export class MayorOMenorComponent {
       this.mensaje = '¡CORRECTO! SEGUI SUMANDO PUNTOS';
       this.puntaje++;
     } else {
-      this.mensaje = `¡PERDISTE! La carta era: ${this.siguienteCarta.valor} de ${this.siguienteCarta.palo}`;
-      this.puntaje = 0;
+      this.mensaje = `¡NOO! La carta era: ${this.siguienteCarta.valor} de ${this.siguienteCarta.palo}`;
+      this.guardarResultado(); 
     }
 
     this.cartaActual = this.siguienteCarta;
     this.siguienteCarta = this.generarCarta();
+  }
+
+  obtenerCorreoUsuario(): string | null {
+    const auth = getAuth();  
+    const user = auth.currentUser;
+
+    if (user && user.email) {
+      return user.email;
+    }
+
+    return null;
+  }
+
+  guardarResultado() {
+    const correoUsuario = this.obtenerCorreoUsuario();
+
+    if (correoUsuario) {
+      addDoc(collection(this.db, 'ranking_mayor_o_menor'), {
+        correo: correoUsuario, 
+        score: this.puntaje,
+        fecha: new Date(),
+      })
+      .then(() => {
+        console.log('Resultado guardado');
+        this.obtenerRanking(); 
+      })
+      .catch((error) => {
+        console.error('Error al guardar el resultado: ', error);
+        this.mensaje = 'Error al guardar el resultado. Intenta nuevamente.';
+      });
+    } else {
+      console.error('No hay usuario autenticado');
+      this.mensaje = 'No se pudo obtener el correo del usuario. Asegúrate de estar logueado.';
+    }
+  }
+
+  obtenerRanking() {
+    const q = query(collection(this.db, 'ranking_mayor_o_menor'), orderBy('score', 'desc'), limit(5)); 
+    onSnapshot(q, (querySnapshot) => {
+      this.mejoresJugadores = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        this.mejoresJugadores.push({ nombre: data['correo'], puntos: data['score'] });
+      });
+    }, (error) => {
+      console.error('Error al obtener ranking: ', error);
+      this.mensaje = 'Error al obtener el ranking. Intenta nuevamente.';
+    });
   }
 }

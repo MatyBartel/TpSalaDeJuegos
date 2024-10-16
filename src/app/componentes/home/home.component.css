@@ -1,3 +1,70 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 80px;
+}
+
+.games {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 100px;
+    justify-items: center;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.icon:hover {
+    transform: scale(1.05);
+}
+
+.icon img {
+    width: 250px;
+    height: 250px;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.dimmed img {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.icon:hover img {
+    transform: scale(1.1);
+}
+
+label {
+    margin-top: 15px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.dimmed img {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.mensaje-sesion {
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center; 
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* Estilos del chat */
 .chat-container {
     position: fixed;
     bottom: 20px;
@@ -59,49 +126,4 @@
     padding: 5px;
     border-radius: 5px;
     background-color: #f1f1f1;
-}
-
-
-
-
-.home-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 120px 180px;
-    justify-items: center;
-    margin: 60px auto;
-    padding: 60px;
-    background-color: #ffffff;
-    border-radius: 10px;
-}
-
-.icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.icon:hover {
-    transform: scale(1.05);
-}
-
-.icon img {
-    width: 250px;
-    height: 250px;
-    transition: transform 0.3s ease;
-    border-radius: 10px;
-}
-
-.icon:hover img {
-    transform: scale(1.1);
-}
-
-label {
-    margin-top: 15px;
-    text-align: center;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-family: 'Roboto', sans-serif;
 }

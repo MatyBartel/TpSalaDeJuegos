@@ -1,0 +1,91 @@
+.word-game-container {
+    text-align: center;
+    max-width: 900px;
+    min-width: 500px;
+    margin: 160px auto;
+    padding: 40px;
+    border: 3px solid #4CAF50;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.palabra {
+    font-size: 36px;
+    letter-spacing: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.letras-grid {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.letras-grid button {
+    font-size: 24px; 
+    padding: 10px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: pointer; 
+    background-color: #c4c4c4; 
+    transition: background-color 0.3s ease; 
+}
+
+.letra-seleccionada {
+    background-color: #012d03; 
+    color: white;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-listo {
+    background-color: #157915;
+    color: white;
+    padding: 10px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-listo:hover {
+    background-color: #005500;
+}
+
+.btn-borrar {
+    background-color: #901717;
+    color: white;
+    padding: 10px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-borrar:hover {
+    background-color: #550000;
+}
+
+.mensaje-final {
+    margin-top: 30px;
+    font-size: 24px;
+    color: #d9534f;
+}
+
+.puntos {
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;
+}

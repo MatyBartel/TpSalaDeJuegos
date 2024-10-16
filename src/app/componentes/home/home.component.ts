@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { getAuth } from "firebase/auth";
@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from '../../../firebaseConfig';
 import { Firestore, collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore"; 
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,32 +23,38 @@ export class HomeComponent implements OnInit {
 
   app = initializeApp(firebaseConfig);
   auth = getAuth(this.app);
-  db: Firestore = getFirestore(this.app);  // Inicializar Firestore
+  db: Firestore = getFirestore(this.app);
+
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    const user = this.auth.currentUser;
-    if (user && user.email) {
-      this.username = user.email; // O usa user.displayName si está disponible
-      this.isLoggedIn = true;
-    } else {
-      this.username = ''; 
-      this.isLoggedIn = false;
-    }
-
-    // Escuchar los mensajes en tiempo real desde Firestore
+    this.checkUserStatus();
     this.listenToMessages();
   }
 
-  // Método para enviar mensajes
+  checkUserStatus() {
+    const user = this.auth.currentUser;
+    this.isLoggedIn = !!user; 
+    if (user && user.email) {
+      this.username = user.email; 
+    } else {
+      this.username = ''; 
+    }
+  }
+
+  // Métodos Chat
   async sendMessage() {
     if (this.message.trim() && this.isLoggedIn) {
       try {
-        const docRef = await addDoc(collection(this.db, 'chats'), {
+        await addDoc(collection(this.db, 'chats'), {
           user: this.username,
           text: this.message,
-          timestamp: new Date()  // Agregar una marca de tiempo para ordenar los mensajes
+          timestamp: new Date() 
         });
-        this.message = ''; // Limpiar el campo de entrada
+        this.message = ''; 
+        this.scrollToBottom();
       } catch (e) {
         console.error("Error al agregar mensaje: ", e);
       }
@@ -63,6 +69,20 @@ export class HomeComponent implements OnInit {
         const data = doc.data();
         this.messages.push({ user: data['user'], text: data['text'] });
       });
+      this.scrollToBottom(); 
     });
+  }
+
+  private scrollToBottom(): void {
+    const chatContainer = document.querySelector('.chat-messages');
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }
+
+  navegarAGrupo(juego: string) {
+    if (this.isLoggedIn) {
+      this.router.navigate([`/${juego}`]); 
+    }
   }
 }

@@ -4,6 +4,9 @@ import { HomeComponent } from './componentes/home/home.component';
 import { PageNotFoundComponent } from './componentes/page-not-found/page-not-found.component';
 import { AhorcadoComponent } from './componentes/ahorcado/ahorcado.component';
 import { MayorOMenorComponent } from './componentes/mayor-o-menor/mayor-o-menor.component';
+import { PreguntadosComponent } from './componentes/preguntados/preguntados.component';
+import { WordGameComponent } from './componentes/word-game/word-game.component';
+
 
 
 export const routes: Routes = [
@@ -12,6 +15,8 @@ export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'ahorcado', component: AhorcadoComponent },
     { path: 'mayor-menor', component: MayorOMenorComponent },
+    { path: 'preguntados', component: PreguntadosComponent },
+    { path: 'word-game', component: WordGameComponent },
 
     { path: '**', component: PageNotFoundComponent },
 ];

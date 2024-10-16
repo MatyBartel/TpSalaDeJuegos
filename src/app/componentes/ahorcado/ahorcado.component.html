@@ -1,42 +1,62 @@
 <div class="ahorcado-container">
   <h2>JUEGO DEL AHORCADO</h2>
-  <div>
-    <h4>Adivina la palabra:</h4>
-    <p class="palabra">{{ obtenerPalabraConGuiones() }}</p>
-  </div>
   
-  <div class="letras">
-    <h4>Selecciona una letra:</h4>
-    <div class="letras-grid">
-      <button *ngFor="let letra of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" (click)="seleccionarLetra(letra)">
-        {{ letra }}
-      </button>
+  <div class="contenido-flex">
+    <!-- Sección del Juego -->
+    <div class="juego">
+      <div>
+        <h4>Adivina la palabra:</h4>
+        <p class="palabra">{{ obtenerPalabraConGuiones() }}</p>
+      </div>
+      
+      <div class="letras">
+        <h4>Selecciona una letra:</h4>
+        <div class="letras-grid">
+          <button *ngFor="let letra of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')" (click)="seleccionarLetra(letra)">
+            {{ letra }}
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="letrasSeleccionadas.length > 0" class="letras-seleccionadas">
+        <h4>Letras seleccionadas:</h4>
+        <p>{{ letrasSeleccionadas.join(', ') }}</p>
+      </div>
+      
+      <div *ngIf="juegoTerminado" class="mensaje-final">
+        <p>{{ mensajeResultado }}</p>
+        <button (click)="getRandomWord()" class="btn-reintentar">VOLVER A JUGAR</button>
+      </div>
+      
+      <div class="intentos">
+        <h4>Intentos restantes: {{ intentosRestantes }}</h4>
+      </div>
+
+      <!-- Sección de puntos -->
+      <div class="puntos">
+        <h4>Puntos: {{ puntos }}</h4>
+      </div>
+
+      <!-- Imágenes del ahorcado -->
+      <div class="image-container">
+        <img *ngIf="intentosRestantes === 6" src="../../../assets/images/cuerda.png" alt="Cuerda">
+        <img *ngIf="intentosRestantes === 5" src="../../../assets/images/cabeza.png" alt="Cabeza">
+        <img *ngIf="intentosRestantes === 4" src="../../../assets/images/torso.png" alt="Torso">
+        <img *ngIf="intentosRestantes === 3" src="../../../assets/images/brazo1.png" alt="Brazo Izquierdo">
+        <img *ngIf="intentosRestantes === 2" src="../../../assets/images/brazo2.png" alt="Brazo Derecho">
+        <img *ngIf="intentosRestantes === 1" src="../../../assets/images/pierna1.png" alt="Pierna Izquierda">
+        <img *ngIf="intentosRestantes === 0" src="../../../assets/images/cuerpo.png" alt="Cuerpo Entero">
+      </div>
     </div>
-  </div>
-  
-  <div *ngIf="letrasSeleccionadas.length > 0" class="letras-seleccionadas">
-    <h4>Letras seleccionadas:</h4>
-    <p>{{ letrasSeleccionadas.join(', ') }}</p>
-  </div>
-  
-  <div *ngIf="juegoTerminado" class="mensaje-final">
-    <p>{{ mensajeResultado }}</p>
-    <button (click)="getRandomWord()" class="btn-reintentar">VOLVER A JUGAR</button>
-  </div>
-  
-  <div class="intentos">
-    <h4>Intentos restantes: {{ intentosRestantes }}</h4>
-  </div>
 
-  <!-- Imágenes del Ahorcado -->
-  <div class="image-container">
-    <img *ngIf="intentosRestantes === 6" src="../../../assets/images/cuerda.png" alt="Cuerda">
-    <img *ngIf="intentosRestantes === 5" src="../../../assets/images/cabeza.png" alt=" Cabeza">
-    <img *ngIf="intentosRestantes === 4" src="../../../assets/images/torso.png" alt="Torso">
-    <img *ngIf="intentosRestantes === 3" src="../../../assets/images/brazo1.png" alt="Brazo Izquierdo">
-    <img *ngIf="intentosRestantes === 2" src="../../../assets/images/brazo2.png" alt="Brazo Derecho">
-    <img *ngIf="intentosRestantes === 1" src="../../../assets/images/pierna1.png" alt="Pierna Izquierda">
-    <img *ngIf="intentosRestantes === 0" src="../../../assets/images/cuerpo.png" alt="Cuerpo Entero">
-
+    <!-- Sección de Ranking -->
+    <div class="ranking-container">
+      <h3>TOP 5:</h3>
+      <ul>
+        <li *ngFor="let jugador of mejoresJugadores">
+          {{ jugador.nombre }} - {{ jugador.puntos }} puntos
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
