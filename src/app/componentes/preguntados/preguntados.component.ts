@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Firestore, collection, addDoc, query, orderBy, limit } from '@angular/fire/firestore';
+import { inject } from '@angular/core';
+import { onSnapshot } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-preguntados',
@@ -17,11 +21,14 @@ export class PreguntadosComponent implements OnInit {
   imagenCategoria: string = '';
   nombreCategoria: string = '';
   apiKey: string = "$2b$12$aOPN7wbnS2sS80QBrb5Jx.HGhQUFe8THWWRyUR6OAmXO7.d0Tk0u6";
+  mejoresJugadores: { nombre: string, puntaje: number }[] = [];
+  private db = inject(Firestore);
 
   constructor() {}
 
   ngOnInit() {
     this.cargarPreguntas();
+    this.obtenerRanking();
   }
 
   async cargarPreguntas() {
@@ -122,6 +129,7 @@ export class PreguntadosComponent implements OnInit {
       this.mensaje = '¡Correcto! Tu puntaje es: ' + this.puntaje;
     } else {
       this.mensaje = 'Incorrecto. La respuesta correcta era: ' + this.preguntaActual.correctAnswers;
+      this.guardarPuntaje();
       this.puntaje = 0;
     }
     this.cambiarPregunta();
@@ -130,5 +138,39 @@ export class PreguntadosComponent implements OnInit {
   onImageError(event: Event) {
     const imgElement = event.target as HTMLImageElement;
     imgElement.src = 'https://firebasestorage.googleapis.com/v0/b/salajuegos-bartel.appspot.com/o/preguntados%2Fdefault.jpg?alt=media';
+  }
+
+
+
+  async guardarPuntaje() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const correoUsuario = user?.email || 'Anónimo'; 
+
+    try {
+      await addDoc(collection(this.db, 'ranking_preguntados'), {
+        correo: correoUsuario,
+        puntaje: this.puntaje,
+        fecha: new Date(),
+      });
+      this.obtenerRanking();
+    } catch (error) {
+      console.error('Error al guardar el puntaje: ', error);
+      this.mensaje = 'Error al guardar el puntaje. Intenta nuevamente.';
+    }
+  }
+
+  obtenerRanking() {
+    const q = query(collection(this.db, 'ranking_preguntados'), orderBy('puntaje', 'desc'), limit(5));
+    onSnapshot(q, (querySnapshot) => {
+      this.mejoresJugadores = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        this.mejoresJugadores.push({ nombre: data['correo'], puntaje: data['puntaje'] });
+      });
+    }, (error) => {
+      console.error('Error al obtener ranking: ', error);
+      this.mensaje = 'Error al obtener el ranking. Intenta nuevamente.';
+    });
   }
 }
