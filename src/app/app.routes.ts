@@ -6,6 +6,7 @@ import { AhorcadoComponent } from './componentes/ahorcado/ahorcado.component';
 import { MayorOMenorComponent } from './componentes/mayor-o-menor/mayor-o-menor.component';
 import { PreguntadosComponent } from './componentes/preguntados/preguntados.component';
 import { WordGameComponent } from './componentes/word-game/word-game.component';
+import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
 
 
 
@@ -17,6 +18,8 @@ export const routes: Routes = [
     { path: 'mayor-menor', component: MayorOMenorComponent },
     { path: 'preguntados', component: PreguntadosComponent },
     { path: 'word-game', component: WordGameComponent },
+    { path: 'encuesta', component: EncuestaComponent },
+
 
     { path: '**', component: PageNotFoundComponent },
 ];

@@ -20,7 +20,7 @@
 }
 
 .respuesta-btn {
-    background-color: #007bff; 
+    background-color: #007bff;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -49,9 +49,9 @@
     font-size: 20px;
     margin-bottom: 20px;
     color: #4CAF50;
-  }
+}
 
-  .categoria-imagen {
+.categoria-imagen {
     width: 400px;
     height: auto;
 }

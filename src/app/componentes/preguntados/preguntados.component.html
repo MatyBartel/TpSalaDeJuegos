@@ -5,16 +5,16 @@
     </div>
 
     <h2 class="pregunta">{{ preguntaActual?.question }}</h2>
-    
+
     <div class="respuestas-container">
         <button *ngFor="let respuesta of respuestas" class="respuesta-btn" (click)="verificarRespuesta(respuesta)">
             {{ respuesta }}
         </button>
     </div>
-    
-    <p class="puntos">Puntaje: {{ puntaje }}</p> 
+
+    <p class="puntos">Puntaje: {{ puntaje }}</p>
     <p class="mensaje">{{ mensaje }}</p>
-    
+
     <div class="ranking-container">
         <h3>TOP 5:</h3>
         <ul>
