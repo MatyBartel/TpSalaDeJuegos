@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { Firestore, collection, addDoc, query, orderBy, limit } from '@angular/fire/firestore';
 import { inject } from '@angular/core';
 import { onSnapshot } from 'firebase/firestore';
@@ -9,8 +7,6 @@ import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-word-game',
-  standalone: true,
-  imports: [CommonModule, HttpClientModule],
   templateUrl: './word-game.component.html',
   styleUrls: ['./word-game.component.css']
 })
@@ -34,7 +30,7 @@ export class WordGameComponent {
 
   getRandomWord() {
     this.botonListoHabilitado = false;
-    this.http.get('https://clientes.api.greenborn.com.ar/public-random-word').subscribe(
+    this.http.get('https://random-word-api.herokuapp.com/word?lang=es').subscribe(
       (response: any) => {
         if (Array.isArray(response) && response.length > 0) {
           const palabra = response[0].toUpperCase();

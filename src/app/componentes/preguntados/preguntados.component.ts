@@ -7,8 +7,6 @@ import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-preguntados',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './preguntados.component.html',
   styleUrls: ['./preguntados.component.css']
 })

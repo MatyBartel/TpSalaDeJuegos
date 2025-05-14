@@ -7,8 +7,6 @@ import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-encuesta',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
   templateUrl: './encuesta.component.html',
   styleUrls: ['./encuesta.component.css']
 })

@@ -1,16 +1,11 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './about.component.html',
-  styleUrl: './about.component.css'
+  styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements AfterViewInit{
-
-  ngAfterViewInit(): void {
-  console.log("about");
-  }
-
-}
+export class AboutComponent {}

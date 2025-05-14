@@ -1,17 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; 
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from '../../../firebaseConfig';
 import { Firestore, collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore"; 
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

@@ -3,14 +3,11 @@ import { Firestore, collection, addDoc, query, orderBy, limit } from '@angular/f
 import { inject } from '@angular/core';
 import { onSnapshot } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
-import { CommonModule, NgFor } from '@angular/common'; 
 
 @Component({
   selector: 'app-mayor-o-menor',
-  standalone: true,
   templateUrl: './mayor-o-menor.component.html',
   styleUrls: ['./mayor-o-menor.component.css'],
-  imports: [CommonModule, NgFor]
 })
 export class MayorOMenorComponent {
   cartaActual!: any;
